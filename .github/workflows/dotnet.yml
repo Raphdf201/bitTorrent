@@ -120,10 +120,10 @@ jobs:
         run: dotnet workload install maui-windows
 
       - name: Restore dependencies
-        run: dotnet restore bitTorrent.App/bitTorrent.App.csproj /p:TargetFramework=net10.0-windows10.0.19041.0 /p:RuntimeIdentifiers=win-x64
+        run: dotnet restore bitTorrent.App/bitTorrent.App.csproj /p:TargetFramework=net10.0-windows10.0.19041.0 /p:RuntimeIdentifiers=win-x64 /p:PublishReadyToRun=true
 
       - name: Build Windows App
-        run: dotnet build bitTorrent.App/bitTorrent.App.csproj -f net10.0-windows10.0.19041.0 -r win-x64 --configuration Release --no-restore
+        run: dotnet build bitTorrent.App/bitTorrent.App.csproj -f net10.0-windows10.0.19041.0 --configuration Release --no-restore
 
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v4
