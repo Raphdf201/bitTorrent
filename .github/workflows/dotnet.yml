@@ -9,7 +9,16 @@ on:
 jobs:
   build-cli:
     name: Build CLI
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        include:
+          - os: linux
+            runner: ubuntu-latest
+          - os: windows
+            runner: windows-latest
+          - os: macos
+            runner: macos-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -28,7 +37,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: cli-build
+          name: cli-${{ matrix.os }}
           path: bitTorrent.Cli/bin/Release/net10.0/
 
   build-android:
