@@ -1,4 +1,4 @@
-﻿namespace bitTorrent.Lib.Extensions;
+﻿namespace bitTorrent.Lib;
 
 // source: Fredrik Mörk (http://stackoverflow.com/a/4015634)
 // Simplified by Raphdf201
