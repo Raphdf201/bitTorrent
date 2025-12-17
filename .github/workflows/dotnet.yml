@@ -52,7 +52,10 @@ jobs:
       - name: Install .NET MAUI workload
         run: dotnet workload install maui-android
 
-      - name: Restore dependencies
+      - name: Restore Library
+        run: dotnet restore bitTorrent.Lib/bitTorrent.Lib.csproj
+
+      - name: Restore App dependencies
         run: dotnet restore bitTorrent.App/bitTorrent.App.csproj /p:TargetFramework=net10.0-android
 
       - name: Build Android App
@@ -81,7 +84,10 @@ jobs:
           dotnet workload install maui-ios
           dotnet workload install maui-maccatalyst
 
-      - name: Restore iOS dependencies
+      - name: Restore Library
+        run: dotnet restore bitTorrent.Lib/bitTorrent.Lib.csproj
+
+      - name: Restore App dependencies
         run: dotnet restore bitTorrent.App/bitTorrent.App.csproj /p:TargetFramework=net10.0-ios
 
       - name: Build iOS App
@@ -120,7 +126,10 @@ jobs:
       - name: Install .NET MAUI workload
         run: dotnet workload install maui-windows
 
-      - name: Restore dependencies
+      - name: Restore Library
+        run: dotnet restore bitTorrent.Lib/bitTorrent.Lib.csproj
+
+      - name: Restore App dependencies
         run: dotnet restore bitTorrent.App/bitTorrent.App.csproj /p:TargetFramework=net10.0-windows10.0.19041.0
 
       - name: Build Windows App
