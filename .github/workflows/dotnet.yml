@@ -1,4 +1,4 @@
-name: Build All Targets
+name: Build
 
 on:
   push:
@@ -19,11 +19,14 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      - name: Restore dependencies
-        run: dotnet restore
+      - name: Restore Library
+        run: dotnet restore bitTorrent.Lib/bitTorrent.Lib.csproj
 
       - name: Build Library
         run: dotnet build bitTorrent.Lib/bitTorrent.Lib.csproj --configuration Release --no-restore
+
+      - name: Restore CLI
+        run: dotnet restore bitTorrent.Cli/bitTorrent.Cli.csproj
 
       - name: Build CLI
         run: dotnet build bitTorrent.Cli/bitTorrent.Cli.csproj --configuration Release --no-restore
@@ -50,10 +53,10 @@ jobs:
         run: dotnet workload install maui-android
 
       - name: Restore dependencies
-        run: dotnet restore bitTorrent.App/bitTorrent.App.csproj
+        run: dotnet restore bitTorrent.App/bitTorrent.App.csproj -f net10.0-android
 
       - name: Build Android App
-        run: dotnet build bitTorrent.App/bitTorrent.App.csproj -f net10.0-android --configuration Release
+        run: dotnet build bitTorrent.App/bitTorrent.App.csproj -f net10.0-android --configuration Release --no-restore
 
       - name: Upload Android artifact
         uses: actions/upload-artifact@v4
@@ -78,14 +81,17 @@ jobs:
           dotnet workload install maui-ios
           dotnet workload install maui-maccatalyst
 
-      - name: Restore dependencies
-        run: dotnet restore bitTorrent.App/bitTorrent.App.csproj
+      - name: Restore iOS dependencies
+        run: dotnet restore bitTorrent.App/bitTorrent.App.csproj -f net10.0-ios
 
       - name: Build iOS App
-        run: dotnet build bitTorrent.App/bitTorrent.App.csproj -f net10.0-ios --configuration Release
+        run: dotnet build bitTorrent.App/bitTorrent.App.csproj -f net10.0-ios --configuration Release --no-restore
+
+      - name: Restore MacCatalyst dependencies
+        run: dotnet restore bitTorrent.App/bitTorrent.App.csproj -f net10.0-maccatalyst
 
       - name: Build MacCatalyst App
-        run: dotnet build bitTorrent.App/bitTorrent.App.csproj -f net10.0-maccatalyst --configuration Release
+        run: dotnet build bitTorrent.App/bitTorrent.App.csproj -f net10.0-maccatalyst --configuration Release --no-restore
 
       - name: Upload iOS artifact
         uses: actions/upload-artifact@v4
@@ -115,10 +121,10 @@ jobs:
         run: dotnet workload install maui-windows
 
       - name: Restore dependencies
-        run: dotnet restore bitTorrent.App/bitTorrent.App.csproj
+        run: dotnet restore bitTorrent.App/bitTorrent.App.csproj -f net10.0-windows10.0.19041.0
 
       - name: Build Windows App
-        run: dotnet build bitTorrent.App/bitTorrent.App.csproj -f net10.0-windows10.0.19041.0 --configuration Release
+        run: dotnet build bitTorrent.App/bitTorrent.App.csproj -f net10.0-windows10.0.19041.0 --configuration Release --no-restore
 
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v4
