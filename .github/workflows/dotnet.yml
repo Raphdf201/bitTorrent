@@ -72,8 +72,8 @@ jobs:
           
       - name: Setup Xcode
         uses: maxim-lobanov/setup-xcode@v1
-          with:
-            xcode-version: '26.2'
+        with:
+          xcode-version: '26.2'
 
       - name: Install .NET MAUI workloads
         run: |
