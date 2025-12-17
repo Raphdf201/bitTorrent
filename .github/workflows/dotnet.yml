@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-cli-and-lib:
+  build-cli:
     name: Build CLI and Library
     runs-on: ubuntu-latest
     
@@ -19,17 +19,11 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      - name: Restore Library
-        run: dotnet restore bitTorrent.Lib/bitTorrent.Lib.csproj
-
-      - name: Build Library
-        run: dotnet build bitTorrent.Lib/bitTorrent.Lib.csproj --configuration Release --no-restore
-
       - name: Restore CLI
-        run: dotnet restore bitTorrent.Cli/bitTorrent.Cli.csproj
+        run: dotnet restore bitTorrent.Cli/bitTorrent.Cli.csproj /p:TargetFramework=net10.0
 
       - name: Build CLI
-        run: dotnet build bitTorrent.Cli/bitTorrent.Cli.csproj --configuration Release --no-restore
+        run: dotnet build bitTorrent.Cli/bitTorrent.Cli.csproj -f net10.0 --configuration Release --no-restore
 
       - name: Upload CLI artifact
         uses: actions/upload-artifact@v4
@@ -75,6 +69,11 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
+          
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+          with:
+            xcode-version: '26.2'
 
       - name: Install .NET MAUI workloads
         run: |
@@ -121,7 +120,7 @@ jobs:
         run: dotnet workload install maui-windows
 
       - name: Restore dependencies
-        run: dotnet restore bitTorrent.App/bitTorrent.App.csproj /p:TargetFramework=net10.0-windows10.0.19041.0
+        run: dotnet restore bitTorrent.App/bitTorrent.App.csproj /p:TargetFramework=net10.0-windows10.0.19041.0 /p:RuntimeIdentifier=win-x64
 
       - name: Build Windows App
         run: dotnet build bitTorrent.App/bitTorrent.App.csproj -f net10.0-windows10.0.19041.0 --configuration Release --no-restore
