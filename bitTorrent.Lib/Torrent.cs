@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Security.Cryptography;
+using System.Text;
 
 namespace bitTorrent.Lib;
 
@@ -20,7 +21,7 @@ public class Torrent
         };
 
         Info = new InfoDict(dict["info"]);
-        InfoHash = System.Security.Cryptography.SHA1.HashData(
+        InfoHash = SHA1.HashData(
             BEncode.Encode(dict["info"])
         );
     }
