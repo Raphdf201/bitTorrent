@@ -69,7 +69,7 @@ jobs:
 
   build-ios-and-maccatalyst:
     name: Build iOS and MacCatalyst
-    runs-on: macos-latest
+    runs-on: macos-26
 
     steps:
       - uses: actions/checkout@v4
